@@ -21,14 +21,19 @@ export default function Home() {
 
   return (
     <>
-      <section className="h-full w-full pt-36 relative flex items-center justify-center flex-col">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-        <p className="text-center">Run your agency, in one place</p>
+      <section className="h-full w-full md:pt-44 mt-[-70px] relative flex items-center justify-center flex-col">
+        {/* grid */}
+
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] -z-10" />
+
+        <p className="text-center lg:mt-40">Run your agency, in one place</p>
+
         <div className="bg-gradient-to-r from-primary to-secondary-foreground text-transparent bg-clip-text relative">
           <h1 className="text-9xl font-bold text-center md:text-[300px]">
             Plura
           </h1>
         </div>
+
         <div className="flex justify-center items-center relative md:mt-[-70px]">
           <Image
             src={'/assets/preview.png'}
@@ -48,7 +53,8 @@ export default function Home() {
           {" you're"} not <br />
           ready to commit you can get started for free.
         </p>
-        <div className="flex  justify-center gap-4 flex-wrap mt-6">
+
+        <div className="flex justify-center gap-4 flex-wrap mt-6">
           {pricingCards.map((card) => (
             // WIP: Wire up free product from stripe
             <Card
@@ -65,39 +71,27 @@ export default function Home() {
                 >
                   {card.title}
                 </CardTitle>
-                <CardDescription>
-                  {
-                    pricingCards.find((c) => c.title === card.title)
-                      ?.description
-                  }
-                </CardDescription>
+                <CardDescription>{card.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <span className="text-4xl font-bold">
-                  {card.unit_amount && card.unit_amount / 100}
-                </span>
-                <span className="text-muted-foreground">
-                  <span>/ {card.recurring?.interval}</span>
-                </span>
+                <span className="text-4xl font-bold">{card.price}</span>
+                <span className="text-muted-foreground">/m</span>
               </CardContent>
               <CardFooter className="flex flex-col items-start gap-4">
                 <div>
-                  {pricingCards
-                    .find((c) => c.title === card.nickname)
-                    ?.features.map((feature) => (
-                      <div key={feature} className="flex gap-2">
-                        <Check />
-                        <p>{feature}</p>
-                      </div>
-                    ))}
+                  {card.features.map((feature) => (
+                    <div key={feature} className="flex gap-2 items-center">
+                      <Check className="text-muted-foreground" />
+                      <p>{feature}</p>
+                    </div>
+                  ))}
                 </div>
                 <Link
-                  href={`/agency?plan=${card.id}`}
+                  href={`/agency?plan=${card.priceId}`}
                   className={clsx(
                     'w-full text-center bg-primary p-2 rounded-md',
                     {
-                      '!bg-muted-foreground':
-                        card.nickname !== 'Unlimited Saas',
+                      '!bg-muted-foreground': card.title !== 'Unlimited Saas',
                     },
                   )}
                 >
@@ -106,7 +100,8 @@ export default function Home() {
               </CardFooter>
             </Card>
           ))}
-          <Card className={clsx('w-[300px] flex flex-col justify-between')}>
+
+          {/* <Card className={clsx('w-[300px] flex flex-col justify-between')}>
             <CardHeader>
               <CardTitle
                 className={clsx({
@@ -144,7 +139,7 @@ export default function Home() {
                 Get Started
               </Link>
             </CardFooter>
-          </Card>
+          </Card> */}
         </div>
       </section>
     </>
