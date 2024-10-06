@@ -1,6 +1,6 @@
 'use client'
 
-import { Agency, User } from '@prisma/client'
+import type { Agency, User } from '@prisma/client'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 interface ModalProviderProps {
@@ -15,14 +15,20 @@ export type ModalData = {
 type ModalContextType = {
   data: ModalData
   isOpen: boolean
-  setOpen: (modal: React.ReactNode, fetchData?: () => Promise<any>) => void
+  setOpen: (
+    modal: React.ReactNode,
+    fetchData?: () => Promise<JSX.Element>,
+  ) => void
   setClose: () => void
 }
 
 export const ModalContext = createContext<ModalContextType>({
   data: {},
   isOpen: false,
-  setOpen: (modal: React.ReactNode, fetchData?: () => Promise<any>) => {},
+  setOpen: (
+    modal: React.ReactNode,
+    fetchData?: () => Promise<JSX.Element>,
+  ) => {},
   setClose: () => {},
 })
 
@@ -38,7 +44,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   const setOpen = async (
     modal: React.ReactNode,
-    fetchData?: () => Promise<any>,
+    fetchData?: () => Promise<JSX.Element>,
   ) => {
     if (modal) {
       if (fetchData) {

@@ -1,6 +1,6 @@
 'use client'
 
-import {
+import type {
   Agency,
   AgencySidebarOption,
   SubAccount,
@@ -202,13 +202,13 @@ export const MenuOptions = ({
                             ) : (
                               <SheetClose asChild>
                                 <Link
-                                  href={`/agency/${subaccount.id}`}
+                                  href={`/subaccount/${subaccount.id}`}
                                   className="flex gap-4 w-full h-full"
                                 >
                                   <div className="relative w-16">
                                     <Image
                                       src={subaccount.subAccountLogo}
-                                      alt="Agency Logo"
+                                      alt="Subaccount Logo"
                                       fill
                                       className="rounded-md object-contain"
                                     />
@@ -237,7 +237,6 @@ export const MenuOptions = ({
                           <CustomModal
                             title="Create A Subaccount"
                             subheading="You can switch between your agency account and the subaccount from the sidebar"
-                            defaultOpen={false}
                           >
                             <SubAccountDetails
                               agencyDetails={user?.Agency as Agency}
