@@ -131,13 +131,16 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
     permissionsId: string | undefined,
   ) => {
     if (!data.user?.email) return
+
     setLoadingPermissions(true)
+
     const response = await changeUserPermissions(
       permissionsId || v4(),
       data.user.email,
       subAccountId,
       val,
     )
+
     if (type === 'agency') {
       await saveActivityLogsNotification({
         agencyId: authUserData?.Agency?.id,
@@ -155,8 +158,9 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
     if (response) {
       toast({
         title: 'Success',
-        description: 'The request was successfull',
+        description: 'The request was successful',
       })
+
       if (subAccountPermissions) {
         subAccountPermissions.Permissions.find((perm) => {
           if (perm.subAccountId === subAccountId) {
@@ -332,7 +336,7 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
             {authUserData?.role === 'AGENCY_OWNER' && (
               <div>
                 <Separator className="my-4" />
-                <FormLabel> User Permissions</FormLabel>
+                <FormLabel>User Permissions</FormLabel>
                 <FormDescription className="mb-4">
                   You can give Sub Account access to team member by turning on
                   access control for each Sub Account. This is only visible to

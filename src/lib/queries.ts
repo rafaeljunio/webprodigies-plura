@@ -428,7 +428,7 @@ export const changeUserPermissions = async (
     })
     return response
   } catch (error) {
-    console.log('🔴Could not change persmission', error)
+    console.log('🔴 Could not change permission', error)
   }
 }
 
